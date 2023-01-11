@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    - var value = row
+    h1 Update note named "#{row.Title}"
+    form(action=`/notes/update${value.Title}` method='POST')
+        label(for="title") Title:
+        input(id="title" name="title" placeholder=`${value.Title}`)
+        label(for="Text") Note:
+        input(id="text" name="text" placeholder=`${value.Text}`)
+        label(for="tags") Tags:
+        input(id="tags", name="tags" placeholder=`${value.Tags}`)
+        input(type="submit")

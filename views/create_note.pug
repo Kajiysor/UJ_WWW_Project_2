@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1 Create a new note
+    form(action='/notes/create' method='POST')
+        label(for="title") Title:
+        input(id="title" name="title")
+        label(for="Text") Note:
+        input(id="text" name="text")
+        label(for="tags") Tags:
+        input(id="tags", name="tags")
+        input(type="submit")

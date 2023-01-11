@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1 Sign Up!
+    form(action='/users/register' method='POST')
+        label(for="login") User name:
+        input(id="login" name="login")
+        label(for="password") Password:
+        input(id="password" name="password")
+        input(type="submit", id="button")

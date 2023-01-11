@@ -1,0 +1,155 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
+  background-color: lightblue;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-right: 150px;
+  margin-left: 80px;
+}
+
+a {
+  color: #00B7FF;
+}
+
+form {
+  justify-content: space-between;
+  flex-grow: 1;
+  display: flex;
+  /* margin-left: 35%; */
+  /* margin-right: 35%; */
+  flex-direction: column;
+  text-align: center;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+input {
+  width: 20%;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+a {
+  justify-content: space-between;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #000000;
+  text-decoration: none;
+  font-size: 250%;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+a:hover {
+  text-shadow: 1px 1px 2px whitesmoke, 0 0 25px white, 0 0 5px white;
+  font-size: 252%;
+}
+
+.title {
+  letter-spacing: 2px;
+  border-radius: 7px;
+  text-transform: uppercase;
+  background-color: lightcoral;
+  text-shadow: 1px 1px 2px whitesmoke, 0 0 25px white, 0 0 5px white;
+  font-size: 20px;
+}
+
+h1{
+  letter-spacing: 2px;
+  font-size: 240%;
+}
+
+h2{
+  letter-spacing: 2px;
+  font-size: 150%;
+  text-decoration: overline;
+}
+
+.text{
+  margin-top: 10px;
+  height: 70px;
+}
+
+.tag{
+  color: #00BBFF;
+}
+
+ul{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  list-style-type: none;
+}
+
+li {
+  list-style-type: none;
+  /* background-color: white; */
+}
+
+.content{
+  display: inline-block;
+  background-color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50%;
+  border: 2px dotted black;
+  border-radius: 10px;
+}
+
+.content:hover{
+  width: 52%;
+  box-shadow: 3px 2px 4px white;
+  border: dotted #00B7FF;
+}
+
+.new-note{
+  justify-content: space-between;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: white;
+  text-decoration: none;
+  font-size: 200%;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.new-note:hover{
+  text-shadow: 1px 1px 2px whitesmoke, 0 0 25px white, 0 0 5px white;
+  font-size: 203%;
+}
+
+.delete{
+  font-size: 100%;
+  letter-spacing: 2px;
+  margin-left: 3%;
+}
+
+.delete:hover{
+  font-size: 103%;
+  text-shadow: 1px 1px 2px whitesmoke, 0 0 25px white, 0 0 5px #FF131B;
+}
+
+.edit{
+  font-size: 100%;
+  letter-spacing: 2px;
+  margin-left: 80%;
+}
+
+.edit:hover{
+  font-size: 103%;
+  text-shadow: 1px 1px 2px whitesmoke, 0 0 25px white, 0 0 5px #FF131B;
+}
