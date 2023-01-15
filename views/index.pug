@@ -1,11 +1,17 @@
 extends layout
 
 block content
+  if logout == true
+    p You have been logged out.
   a(href="/notes")="See your notes "
   p 
-  a(href="/users/register")="register "
-  p 
-  a(href="/users/login")="log in "
-  p 
+  //- if user is authorized, show logout link
+  if authorized
+    a(href="/users/logout")="log out "
+  else
+    a(href="/users/register")="register "
+    p 
+    a(href="/users/login")="log in "
+  p
 
 
