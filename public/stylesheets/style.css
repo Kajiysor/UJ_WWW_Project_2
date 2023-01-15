@@ -2,15 +2,17 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   text-align: center;
-  background-color: lightblue;
-  margin-top: 100px;
-  margin-bottom: 100px;
-  margin-right: 150px;
-  margin-left: 80px;
+  background-color: rgb(203, 249, 255);
+  margin-top: 25vh;
 }
 
 a {
   color: #00B7FF;
+}
+
+p {
+  margin: 3vh;
+  line-height: 5em;
 }
 
 form {
@@ -42,6 +44,15 @@ button {
   outline: none;
 }
 
+.home-button{
+  border-radius: 1.5vw;
+  background-color: lightcoral;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  padding: 10px;
+}
+
 a {
   justify-content: space-between;
   letter-spacing: 3px;
@@ -50,8 +61,6 @@ a {
   text-decoration: none;
   font-size: 250%;
   text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 a:hover {
@@ -119,7 +128,6 @@ li {
   justify-content: space-between;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: white;
   text-decoration: none;
   font-size: 200%;
   text-align: center;
@@ -127,10 +135,6 @@ li {
   margin-bottom: 10px;
 }
 
-.new-note:hover{
-  text-shadow: 1px 1px 2px whitesmoke, 0 0 25px white, 0 0 5px white;
-  font-size: 203%;
-}
 
 .delete{
   font-size: 100%;
