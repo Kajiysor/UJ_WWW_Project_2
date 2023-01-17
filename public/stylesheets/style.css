@@ -2,12 +2,8 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   text-align: center;
-  background-color: rgb(203, 249, 255);
+  background-color: rgb(104, 104, 104);
   margin-top: 25vh;
-}
-
-a {
-  color: #00B7FF;
 }
 
 p {
@@ -19,8 +15,6 @@ form {
   justify-content: space-between;
   flex-grow: 1;
   display: flex;
-  /* margin-left: 35%; */
-  /* margin-right: 35%; */
   flex-direction: column;
   text-align: center;
   letter-spacing: 4px;
@@ -31,8 +25,8 @@ input {
   width: 20%;
   display: block;
   margin: 0 auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 button {
@@ -46,7 +40,7 @@ button {
 
 .home-button{
   border-radius: 1.5vw;
-  background-color: lightcoral;
+  background-color: rgb(122, 80, 58);
   border-style: solid;
   border-color: black;
   border-width: 2px;
@@ -72,8 +66,8 @@ a:hover {
   letter-spacing: 2px;
   border-radius: 7px;
   text-transform: uppercase;
-  background-color: lightcoral;
-  text-shadow: 1px 1px 2px whitesmoke, 0 0 25px white, 0 0 5px white;
+  background-color: rgb(122, 80, 58);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0), 0 0 25px white, 0 0 5px white;
   font-size: 20px;
 }
 
@@ -105,23 +99,21 @@ ul{
 
 li {
   list-style-type: none;
-  /* background-color: white; */
 }
 
 .content{
   display: inline-block;
-  background-color: white;
+  background-color: rgb(251, 250, 159);
   margin-top: 10px;
   margin-bottom: 10px;
   width: 50%;
-  border: 2px dotted black;
+  border: 2px dotted rgba(255, 255, 255, 0);
   border-radius: 10px;
 }
 
 .content:hover{
   width: 52%;
-  box-shadow: 3px 2px 4px white;
-  border: dotted #00B7FF;
+  box-shadow: 3px 2px 4px rgb(0, 0, 0);
 }
 
 .new-note{
@@ -144,7 +136,7 @@ li {
 
 .delete:hover{
   font-size: 103%;
-  text-shadow: 1px 1px 2px whitesmoke, 0 0 25px white, 0 0 5px #FF131B;
+  text-shadow: 1px 1px 2px whitesmoke, 0 0 25px white, 0 0 5px rgb(122, 80, 58);
 }
 
 .edit{
@@ -155,5 +147,14 @@ li {
 
 .edit:hover{
   font-size: 103%;
-  text-shadow: 1px 1px 2px whitesmoke, 0 0 25px white, 0 0 5px #FF131B;
+  text-shadow: 1px 1px 2px whitesmoke, 0 0 25px white, 0 0 5px rgb(122, 80, 58);
+}
+
+#submit{
+  background-color: rgb(122, 80, 58);
+  border-radius: 1.5vw;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  padding: 10px;
 }
