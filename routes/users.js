@@ -47,7 +47,7 @@ router.post('/login', (req, res) => {
             }
         } else {
             req.status = 403;
-            res.send("Failed login.");
+            res.send("Login failed");
         }
     });
 
