@@ -1,11 +1,27 @@
+# Jak uruchomić?
+
+#### 1. `npm install`
+
+#### 2. `npm start`
+
+#### 3. W przeglądarce `localhost:3000`
+
+# Mockup
+
+#### [Moqups Link](https://app.moqups.com/aOikGcNxp9zTHNO3XNkNh6z9cjOZJ6Yy/view?ui=0)
+
 # Dokumentacja
+
 ### Identyfikacja zagadnienia biznesowego
 
-Nikt nie jest w stanie spamiętać wszystkiego co ma do zrobienia, zwłaszcza po koronawirusie, gdzie połowa społeczeństwa ma problemy z pamięcią! Na pomoc przychodzi prosta i łatwa w obsłudze aplikacja **YourNotes**. Aplikacja **YourNotes** pozwala użytkownikowi na założenie konta spisywanie wszystkich swoich myśli, ewentualne edytowanie notatek poźniej oraz usuwanie, gdy już są zbędne.
+Ludziom ciężko pamiętać wszystkie rzeczy, które mieli mieć w głowie. Lista zakupów, daty urodzin, ważna sprawa do załatwienia?
+**Notes** pozwala na łatwe zarządzanie wszystkimi swoimi notatkami!
+Aplikacja **Notes** pozwala użytkownikowi na założenie konta spisywanie wszystkich swoich myśli, edytowanie notatek oraz ich usuwanie, gdy już są zbędne.
 
 ### Wymagania systemowe i funkcjonalne
 
 ##### Wymagania funkcjonalne:
+
 - dodawanie użytkowników
 - dodawanie notatek
 - usuwanie notatek
@@ -14,182 +30,217 @@ Nikt nie jest w stanie spamiętać wszystkiego co ma do zrobienia, zwłaszcza po
 - zarządzanie sesją użytkownika
 
 ##### Wymagania techniczne:
+
 - backend: Node.js + Express
-- frontend: szablony Pug + CSS 
+- frontend: szablony Pug + CSS
 
 ##### Wymagania dotyczące baz danych:
+
 - relacyjna baza danych: SQLite3 zawiera wszystko co jest potrzebne. Przechowuje dane w tabelach, umożliwia definiowanie relacji pomiędzy nimi oraz zapytania się wykonuje przy użyciu niezawodnego SQLa.
 
-##### Model architektury 
-Monolit - **YourNotes** zawiera wszystkie cechy i funkcje w jednej aplikacji i jednej bazie kodu. One mogą zostać zainstalowane w tym samym czasie, wtedy każdy serwer będzie hostem dla kompletnej kopii tej aplikacji. 
+##### Model architektury
+
+Monolit - **Notes** zawiera wszystkie cechy i funkcje w jednej aplikacji i jednej bazie kodu. One mogą zostać zainstalowane w tym samym czasie, wtedy każdy serwer będzie hostem dla kompletnej kopii tej aplikacji.
 
 ### Analiza zagadnienia i jego modelowanie
+
 #### Modele danych:
+
 - entity-relationship model
 - encje
-- relacje 
+- relacje
+
 #### Diagramy przepływu danych
-Oto klient:
+
+Generalny przepływ danych w aplikacji:
+
 ```mermaid
 sequenceDiagram
-    actor Client
+    participant Client
+    participant FrontEnd
+    participant BackEnd
+    participant Database
+    Client->>FrontEnd: Klika lub wpisuje na stronie
+    FrontEnd->>BackEnd: Przekazuje dane
+    BackEnd->>Database: Wykonuje operacje na bazie danych
+    Database-->>BackEnd: Zwraca wynik
+    BackEnd-->>FrontEnd: Przekazuje wynik
+    FrontEnd-->>Client: Wyświetla wynik
 ```
+
 ##### Funkcjonalność: Dodanie Notatki
+
 ```mermaid
 flowchart LR
     client[Client]
     backend[BackEnd]
     frontend[FrontEnd]
     db[(Database)]
-    client-->|Wpisuje w formularzu|frontend-->|Przekazuje dane|backend-->| wykonuje INSERT INTO|db
+    client-->|Wpisuje w formularzu|frontend-->|Przekazuje dane|backend-->|Wykonuje INSERT INTO|db
 ```
+
 ##### Funkcjonalność: Wyświetlenie Notatek
+
 ```mermaid
 flowchart LR
     client[Client]
     backend[BackEnd]
     frontend[FrontEnd]
     db[(Database)]
-    client-->|klika w See your notes|frontend-->|/notes|backend-->|Zapytanie o wszystkie notatki|db-->|Zwraca notatki|backend-->|Odbiera wynik zapytania i przekazuje do frontu|frontend-->|wyśweitla|client
+    client-->|Klika w See your notes|frontend-->|/notes|backend-->|Zapytanie o wszystkie notatki|db-->|Zwraca notatki|backend-->|Odbiera wynik zapytania i przekazuje do frontu|frontend-->|Wyświetla|client
 ```
+
 ##### Funkcjonalność: Usuwanie Notatki
+
 ```mermaid
 flowchart LR
     client[Client]
     backend[BackEnd]
     frontend[FrontEnd]
     db[(Database)]
-    client-->|delete button|frontend-->|title|backend-->|DELETE|db
+    client-->|Delete button|frontend-->|Title|backend-->|DELETE|db
 ```
 
 ##### Funkcjonalność: Edycja Notatki
+
 ##### GET
+
 ```mermaid
 flowchart LR
     client[Client]
     backend[BackEnd]
     frontend[FrontEnd]
     db[(Database)]
-    client-->|edytuj notatke|frontend-->|title notatki|backend
-    backend-->|SELECT notatka=title|db-->backend-->|dane o notatce|frontend-->|formularz wypełniony danymi|client
+    client-->|Edytuj notatke|frontend-->|Title|backend
+    backend-->|SELECT notatka=title|db-->backend-->|Dane o notatce|frontend-->|Formularz wypełniony danymi|client
 ```
+
 ##### POST
+
 ```mermaid
 flowchart LR
     client[Client]
     backend[BackEnd]
     frontend[FrontEnd]
     db[(Database)]
-    client-->|submit|frontend-->|przekazuje dane|backend-->|UPDATE|db
+    client-->|Submit|frontend-->|Przekazuje dane|backend-->|UPDATE|db
 ```
 
 ### Implementacja
 
 ##### Zarządzanie sesją użytkownika:
+
 - przechowywanie sesji w bazie
 - user_id przesyłane
 
 ```
-if (req.cookies.session) {
-        const session_id = req.cookies.session;
-        var db = new sqlite3.Database('notes.db');
-        let query = `SELECT UserId FROM Sessions WHERE UUID="${session_id}"`;
-        db.all(query, (err, rows) => {
-            if (rows.length == 1) {
-                req.user_id = rows[0].UserId;
-                req.authorized = true;
-            } else {
-                req.authorized = false;
-            }
+    if (req.cookies.session) {
+            const session_id = req.cookies.session;
+            var db = new sqlite3.Database('notes.db');
+            let query = `SELECT UserId FROM Sessions WHERE UUID="${session_id}"`;
+            db.all(query, (err, rows) => {
+                if (rows.length == 1) {
+                    req.user_id = rows[0].UserId;
+                    req.authorized = true;
+                } else {
+                    req.authorized = false;
+                }
+                next();
+            });
+        } else {
+            req.authorized = false;
             next();
-        });
-    } else {
-        req.authorized = false;
-        next();
-    }
+        }
 ```
 
 Weryfikacja w innych funkcjonalnościach:
 
-``` 
-if(req.authorized){
-      ...
-} else {
-    req.status = 403;
-    res.redirect('/users/login');
-    }
 ```
+    if(req.authorized){
+        ...
+    } else {
+        req.status = 403;
+        res.redirect('/users/login');
+        }
+```
+
 Wymusza logowanie, jeśli sesja jest nieważna
 
 Expires in : `date.setTime(Date.now() + 1000 * 1200`
 
-##### Dodawanie notatki 
-Formularz 
+##### Dodawanie notatki
+
+Formularz
+
 ```
-router.get('/create', (req, res) => {
-    res.render('create_note', {});
-});
+    router.get('/create', (req, res) => {
+        res.render('create_note', {});
+    });
 ```
+
 Po wypełnieniu formularza dane są wpisywane do bazy
+
 ```
-var db = new sqlite3.Database('notes.db');
+    var db = new sqlite3.Database('notes.db');
 
-        let note_title = req.body.title;
-        let note_text = req.body.text;
-        let note_tags = req.body.tags;
+    let note_title = req.body.title;
+    let note_text = req.body.text;
+    let note_tags = req.body.tags;
 
-        let query = `INSERT INTO Notes(Title, Text, Tags, "User ID") VALUES("${note_title}", "${note_text}", "${note_tags}", "${req.user_id}")`;
+    let query = `INSERT INTO Notes(Title, Text, Tags, "User ID") VALUES("${note_title}", "${note_text}", "${note_tags}", "${req.user_id}")`;
 
-        db.run(query);
+    db.run(query);
 
-        res.redirect('/notes');
+    res.redirect('/notes');
 ```
 
 ##### Edycja notatki
 
 ```
- var db = new sqlite3.Database('notes.db');
-        
-        let new_title = req.body.title;
-        let new_text = req.body.text;
-        let new_tag = req.body.tags;
+    var db = new sqlite3.Database('notes.db');
 
-        let notes_query = `SELECT Title, Text, Tags FROM Notes WHERE Title="${req.params.title}" AND "User ID"=${req.user_id}`;
-        db.all(notes_query, (err, data) => {
-            if (data.length >= 1) {
-                if (new_title.length == 0) {
-                    new_title = data[0].Title;
-                }
-                if (new_text.length == 0) {
-                    new_text = data[0].Text;
-                }
-        
-                if (new_tag.length == 0) {
-                    new_tag = data[0].Tags;
-                }
-        
-                let update_query = `UPDATE Notes SET Title = "${new_title}", Text = "${new_text}", Tags = "${new_tag}" WHERE "User ID"=${req.user_id} AND Title="${req.params.title}";`;
-                db.run(update_query);
-        
-                res.redirect('/notes');
+    let new_title = req.body.title;
+    let new_text = req.body.text;
+    let new_tag = req.body.tags;
+
+    let notes_query = `SELECT Title, Text, Tags FROM Notes WHERE Title="${req.params.title}" AND "User ID"=${req.user_id}`;
+    db.all(notes_query, (err, data) => {
+        if (data.length >= 1) {
+            if (new_title.length == 0) {
+                new_title = data[0].Title;
             }
-        });
-```
+            if (new_text.length == 0) {
+                new_text = data[0].Text;
+            }
 
+            if (new_tag.length == 0) {
+                new_tag = data[0].Tags;
+            }
+
+            let update_query = `UPDATE Notes SET Title = "${new_title}", Text = "${new_text}", Tags = "${new_tag}" WHERE "User ID"=${req.user_id} AND Title="${req.params.title}";`;
+            db.run(update_query);
+
+            res.redirect('/notes');
+        }
+    });
+```
 
 ##### Usuwanie notatki
-Usuwanie notatki o tytule *title*
+
+Usuwanie notatki o tytule _title_
 
 ```
-var db = new sqlite3.Database('notes.db');
-        let query = `DELETE FROM Notes WHERE Title="${req.params.title}" AND "User ID"=${req.user_id};`;
-        db.run(query);
+    var db = new sqlite3.Database('notes.db');
+    let query = `DELETE FROM Notes WHERE Title="${req.params.title}" AND "User ID"=${req.user_id};`;
+    db.run(query);
 
-        res.redirect('/notes');
+    res.redirect('/notes');
 ```
 
 ##### Rejestracja użytkownika
+
 Dodanie do tabeli Users, od razu dodaje też do tabeli Sessions nową sesje świeżo zarejestrowanego użytkownika, po czym przekierowuje do notatek konkretnego użytkownika
+
 ```
 
     let user_name = req.body.login;
@@ -224,5 +275,3 @@ Dodanie do tabeli Users, od razu dodaje też do tabeli Sessions nową sesje świ
 
         res.redirect('/notes');
 ```
-
-
